@@ -1,14 +1,14 @@
-// libary project
+// library project
 
 let myLibrary = [];
 
-function Book(title, author, pages, read) { //functions (and anything between "{}" are objects in js)
+function Book(title, author, pages, read) { 
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
-  this.info = function() { //can be used by "main" function/object (Book) and also can be inherited
-    const infolog = title + " by " + this.author + ", " + this.pages + " pages, " + this.read; //test if it works if u use `title` instead of `this.title` EDIT: yes
+  this.info = function() { 
+    const infolog = title + " by " + author + ", " + pages + " pages, " + read; 
     return infolog;
   }
 
@@ -30,19 +30,11 @@ function Book(title, author, pages, read) { //functions (and anything between "{
 
 }
 
-Book.test = function() { //can be called by Book function but not new objects of Book
-  console.log("test"); 
-}
-
-Book.prototype.print = function() { //cannot be called by Book function but can be called by new objects of Book
-    console.log(this.author); 
-}
-
 function addBookToLibrary(bookToBeAdded) {
-  // do stuff here
   myLibrary.push(bookToBeAdded);
 }
 
+// default books in Library
 var book1 = new Book("harry potter", "jk rowling", 2348, "read");
 var book2 = new Book("blues", "pal", 189, "unread");
 var book3 = new Book("chico", "eli", 762, "read");
@@ -103,7 +95,6 @@ function addDefaultRow(rowContent1, rowContent2, rowContent3, rowContent4, rowCo
   }
 
   myElement.appendChild(tr);
-  console.log(tr.id); //XXXXX idk if i need this
   rowCounter++;
 }
 
@@ -125,8 +116,6 @@ function closeForm() {
 }
 
 function addBookByButton(title, author, pages, read) {
-  //do stuff
-  console.log("form submitted");
   addDefaultRow(title.value, author.value, pages.value, read.value, "false");
 }
 
