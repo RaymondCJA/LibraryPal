@@ -62,7 +62,7 @@ function addTable() {
 
 var rowCounter = 0;
 
-function addDefaultRow(rowContent1, rowContent2, rowContent3, rowContent4) {
+function addDefaultRow(rowContent1, rowContent2, rowContent3, rowContent4, rowContent5) {
   var myElement = document.getElementById("tableId");
 
   var tr = document.createElement("tr");
@@ -84,11 +84,23 @@ function addDefaultRow(rowContent1, rowContent2, rowContent3, rowContent4) {
   var cellRead = document.createTextNode(rowContent4);
   tdRead.appendChild(cellRead);
 
-
   tr.appendChild(tdTitle);
   tr.appendChild(tdAuthor);
   tr.appendChild(tdPages);
   tr.appendChild(tdRead);
+  
+
+  if (rowContent5 == "false") {
+    //do smth
+    var tdremoveBook = document.createElement("button");
+    var tridClone = tr.id.toString();
+    tdremoveBook.onclick = function() {
+      removeBookByButton(tridClone.split("myDefaultTr").pop());
+    }
+    var cellremoveBook = document.createTextNode("Remove Book");
+    tdremoveBook.appendChild(cellremoveBook);
+    tr.appendChild(tdremoveBook);
+  }
 
   myElement.appendChild(tr);
   console.log(tr.id); //XXXXX idk if i need this
@@ -100,7 +112,7 @@ function render() {
   addDefaultRow("TITLE", "PAGES", "AUTHOR", "READ");
   for (i = 0; i < myLibrary.length; i++) {
     addDefaultRow(myLibrary[i].toString(), myLibrary[i].getAuthor(), 
-    myLibrary[i].getPages(), myLibrary[i].getRead());
+    myLibrary[i].getPages(), myLibrary[i].getRead(), "false");
   }
 }
 
@@ -115,12 +127,17 @@ function closeForm() {
 function addBookByButton(title, author, pages, read) {
   //do stuff
   console.log("form submitted");
-  addDefaultRow(title.value, author.value, pages.value, read.value);
+  addDefaultRow(title.value, author.value, pages.value, read.value, "false");
 }
 
-function removeBookByButton() {
-  //remove a book
-  
+function removeBookByButton(indexNumber) { 
+  const indexOfBookToBeRemoved = document.getElementById("myDefaultTr" + indexNumber).rowIndex;
+  if (indexOfBookToBeRemoved == 0) {
+    return;
+  }
+  else {
+    document.getElementById("tableId").deleteRow(indexOfBookToBeRemoved);
+  }
 }
 
 render();
