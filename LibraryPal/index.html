@@ -12,8 +12,10 @@
 
 <button class="open-button" onclick="openForm()">Add a new book</button>
 
+<!-- iframe usage to prevent url redirect: https://visdup.blogspot.com/2019/03/how-to-submit-html-form-without.html-->
+<iframe width="0" height="0" name="dummyframe" id="dummyframe"></iframe>
 <div class="form-popup" id="myForm">
-  <form action="/action_page.php" class="form-container">
+  <form onsubmit="addBookByButton(title, author, pages, read);" target="dummyframe" class="form-container">
     <h1>Add a new book</h1>
 
     <label for="title"><b>Title</b></label>

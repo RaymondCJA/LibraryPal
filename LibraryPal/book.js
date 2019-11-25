@@ -44,38 +44,12 @@ function addBookToLibrary(bookToBeAdded) {
 }
 
 var book1 = new Book("harry potter", "jk rowling", 2348, "read");
-var book2 = new Book("blues", "pal", 189, "not read");
+var book2 = new Book("blues", "pal", 189, "unread");
 var book3 = new Book("chico", "eli", 762, "read");
 addBookToLibrary(book1);
 addBookToLibrary(book2);
 addBookToLibrary(book3);
 
-/*
-function render() {
-  var x = document.getElementById("table1");
-  for (const books in myLibrary) {
-    // make a table and have each book in it
-    x.insertAdjacentHTML('afterend', books.toString);
-  }
-}
-*/
-
-/*
-//apparently books is seen as an index in this for-in loop, maybe because myLibrary is an array (instead of an object)
-function render1() {
-  for (const books in myLibrary) {
-    // make a table and have each book in it
-    console.log(myLibrary[books].toString());
-  }
-}
-
-function render2() {
-  for (i = 0; i < myLibrary.length; i++) {
-    // make a table and have each book in it
-    console.log(myLibrary[i].toString());
-  }
-}
-*/
 
 function addTable() {
   var myElement = document.getElementById("tableDiv");
@@ -92,7 +66,7 @@ function addDefaultRow(rowContent1, rowContent2, rowContent3, rowContent4) {
   var myElement = document.getElementById("tableId");
 
   var tr = document.createElement("tr");
-  tr.id = "myDefaultTr";
+  tr.id = "myDefaultTr" + rowCounter;
 
   var tdTitle = document.createElement("td");
   var cellTitle = document.createTextNode(rowContent1);
@@ -100,7 +74,7 @@ function addDefaultRow(rowContent1, rowContent2, rowContent3, rowContent4) {
 
   var tdAuthor = document.createElement("td");
   var cellAuthor = document.createTextNode(rowContent2);
-  tdAuthor .appendChild(cellAuthor);
+  tdAuthor.appendChild(cellAuthor);
 
   var tdPages = document.createElement("td");
   var cellPages = document.createTextNode(rowContent3);
@@ -117,24 +91,9 @@ function addDefaultRow(rowContent1, rowContent2, rowContent3, rowContent4) {
   tr.appendChild(tdRead);
 
   myElement.appendChild(tr);
+  console.log(tr.id); //XXXXX idk if i need this
+  rowCounter++;
 }
-
-/*
-function addRow(rowContent) {
-  var myElement = document.getElementById("tableId");
-
-  var tr = document.createElement("tr");
-  tr.id = "myTr";
-
-  var td = document.createElement("td");
-  var cell = document.createTextNode(rowContent);
-  td.appendChild(cell);
-
-  tr.appendChild(td);
-
-  myElement.appendChild(tr);
-}
-*/
 
 function render() {
   addTable();
@@ -153,8 +112,15 @@ function closeForm() {
   document.getElementById("myForm").style.display = "none";
 }
 
-function addBookByButton() {
+function addBookByButton(title, author, pages, read) {
   //do stuff
+  console.log("form submitted");
+  addDefaultRow(title.value, author.value, pages.value, read.value);
+}
+
+function removeBookByButton() {
+  //remove a book
+  
 }
 
 render();
