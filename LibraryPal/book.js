@@ -1,6 +1,7 @@
 // library project
 
 let myLibrary = [];
+var rowCounter = 0;
 
 function Book(title, author, pages, read) { 
   this.title = title;
@@ -35,9 +36,9 @@ function addBookToLibrary(bookToBeAdded) {
 }
 
 // default books in Library
-var book1 = new Book("harry potter", "jk rowling", 2348, "read");
-var book2 = new Book("blues", "pal", 189, "unread");
-var book3 = new Book("chico", "eli", 762, "read");
+var book1 = new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 246, "read");
+var book2 = new Book("Moby Dick or The Whale", "Herman Melville", 585, "unread");
+var book3 = new Book("Animal Farm", "George Orwell", 100, "read");
 addBookToLibrary(book1);
 addBookToLibrary(book2);
 addBookToLibrary(book3);
@@ -51,8 +52,6 @@ function addTable() {
 
   myElement.appendChild(myTable);
 }
-
-var rowCounter = 0;
 
 function addDefaultRow(rowContent1, rowContent2, rowContent3, rowContent4, rowContent5) {
   var myElement = document.getElementById("tableId");
@@ -72,18 +71,32 @@ function addDefaultRow(rowContent1, rowContent2, rowContent3, rowContent4, rowCo
   var cellPages = document.createTextNode(rowContent3);
   tdPages.appendChild(cellPages);
 
-  var tdRead = document.createElement("td");
-  var cellRead = document.createTextNode(rowContent4);
-  tdRead.appendChild(cellRead);
+  if (rowContent5 == "false") {
+    var tdRead = document.createElement("button");
+    var cellRead = document.createTextNode(rowContent4);
+    tdRead.appendChild(cellRead);
+  } 
+  else {
+    var tdRead = document.createElement("td");
+    var cellRead = document.createTextNode(rowContent4 + "STATUS");
+    tdRead.appendChild(cellRead);
+  }
 
   tr.appendChild(tdTitle);
   tr.appendChild(tdAuthor);
   tr.appendChild(tdPages);
   tr.appendChild(tdRead);
-  
 
   if (rowContent5 == "false") {
-    //do smth
+    tdRead.onclick = function() {
+      if (document.getElementById(tr.id).childNodes[3].textContent == "read") {
+        document.getElementById(tr.id).childNodes[3].textContent = "unread"; 
+      } 
+      else {
+        document.getElementById(tr.id).childNodes[3].textContent = "read";
+      }
+    }
+
     var tdremoveBook = document.createElement("button");
     var tridClone = tr.id.toString();
     tdremoveBook.onclick = function() {
